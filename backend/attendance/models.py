@@ -35,9 +35,12 @@ class ClassRoom(models.Model):
 class AttendanceTable(models.Model):
     classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE)
     enrollment_number = models.CharField(max_length=20)
-    student_name = models.CharField(max_length=100)
+    student_name = models.CharField(max_length=255)
     total_attendance = models.IntegerField(default=0)
-    attendance_dates = models.JSONField()
+    attendance_dates = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        unique_together = ('classroom', 'enrollment_number')
 
     def __str__(self):
         return f"{self.student_name} - {self.classroom.name}"

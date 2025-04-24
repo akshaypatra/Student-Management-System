@@ -41,7 +41,7 @@ def create_classroom(request):
             enrollment_number = str(row['enrollment_number']).strip()
             student_name = str(row['student_name']).strip()
 
-            student = CustomUser.objects.filter(enrollment_number=enrollment_number, role='student').first()
+            student = CustomUser.objects.filter(id=enrollment_number, role='student').first()
 
             if not student:
                 return Response(
@@ -160,10 +160,24 @@ def mark_attendance(request):
         if student not in classroom.students.all():
             return Response({"error": f"Student {student.get_full_name()} is not in this classroom."}, status=status.HTTP_400_BAD_REQUEST)
 
-        attendance_record, created = AttendanceTable.objects.get_or_create(
-            classroom=classroom, enrollment_number=student.enrollment_number,
-            student_name=student.get_full_name()
-        )
+        attendance_record = AttendanceTable.objects.filter(
+            classroom=classroom,
+            enrollment_number=student.id
+            ).first()
+
+        if not attendance_record:
+            attendance_record = AttendanceTable.objects.create(
+                classroom=classroom,
+                enrollment_number=student.id,
+                student_name=student.get_username(),
+                attendance_dates={},
+                total_attendance=0
+            )
+
+        # Ensure attendance_dates is not None
+        if attendance_record.attendance_dates is None:
+            attendance_record.attendance_dates = {}
+
         attendance_record.attendance_dates[date] = record['status']
         attendance_record.total_attendance += 1 if record['status'] == 'present' else 0
         attendance_record.save()
