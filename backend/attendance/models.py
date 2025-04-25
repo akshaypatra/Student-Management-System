@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# Assuming CustomUser is already defined elsewhere
 from users.models import CustomUser
 
 
