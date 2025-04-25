@@ -223,7 +223,7 @@ def create_attendance_correction(request):
         student = CustomUser.objects.get(id=student_id)
 
         # Ensure the student is enrolled in the classroom for the attendance record
-        if attendance_record.classroom not in student.classrooms.all():
+        if attendance_record.classroom not in student.enrolled_classes.all():
             return Response({"error": "Student not enrolled in this classroom."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create the correction request
