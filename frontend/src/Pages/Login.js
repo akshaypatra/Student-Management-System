@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // 👁️ Eye icons
-import { FaUserCircle } from 'react-icons/fa'; // 🙋 User icon
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { FaUserCircle } from 'react-icons/fa'; /
 
 function Login() {
   const navigate = useNavigate();
@@ -27,8 +27,11 @@ function Login() {
       localStorage.setItem('refresh_token', tokens.refresh);
       localStorage.setItem('user_role', user.role);
       localStorage.setItem('user_name', user.name);
+      localStorage.setItem('is_superuser', user.is_superuser);
 
-      if (user.role === 'teacher') {
+      if (user.is_superuser) {
+        navigate('/admin-dashboard');
+      } else if (user.role === 'teacher') {
         navigate('/teacher-dashboard');
       } else if (user.role === 'student') {
         navigate('/student-dashboard');

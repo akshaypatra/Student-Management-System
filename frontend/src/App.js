@@ -19,7 +19,7 @@ function App() {
         <section className="main-content">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/contact" element={<Contact />} />

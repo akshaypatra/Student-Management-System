@@ -7,6 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
+  const [isSuperUser, setIsSuperUser] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -20,9 +21,11 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const role = localStorage.getItem('user_role');
-    if (token && role) {
+    const superUser = localStorage.getItem('is_superuser') === 'true';
+    if (token ) {
       setIsLoggedIn(true);
       setUserRole(role);
+      setIsSuperUser(superUser);
     }
   }, []);
 
@@ -31,7 +34,9 @@ const Navbar = () => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user_role');
     localStorage.removeItem('user_name');
+    localStorage.removeItem('is_superuser');
     setIsLoggedIn(false);
+    setIsSuperUser(false);
     closeMenu();           // Close menu after logout
     navigate('/login');    // Navigate after logout
   };
@@ -63,11 +68,17 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {userRole === "teacher" && (
-              <li><Link to="/teacher-dashboard" onClick={closeMenu}>Teacher Dashboard</Link></li>
-            )}
-            {userRole === "student" && (
-              <li><Link to="/student-dashboard" onClick={closeMenu}>Student Dashboard</Link></li>
+            {isSuperUser ? (
+              <li><Link to="/admin-dashboard" onClick={closeMenu}>Admin Dashboard</Link></li> 
+            ) : (
+              <>
+                {userRole === "teacher" && (
+                  <li><Link to="/teacher-dashboard" onClick={closeMenu}>Teacher Dashboard</Link></li>
+                )}
+                {userRole === "student" && (
+                  <li><Link to="/student-dashboard" onClick={closeMenu}>Student Dashboard</Link></li>
+                )}
+              </>
             )}
             <li className="logout-button-li">
               <button onClick={handleLogout} className="logout-button">Logout</button>
