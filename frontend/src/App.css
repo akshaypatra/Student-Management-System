@@ -416,6 +416,10 @@ tr:hover {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);
 }
+.subject-list:hover {
+  background-color: #007bffa7;
+  cursor: pointer;
+}
 
 .add-subject-button{
   background-color:  #00c8ff;
@@ -448,4 +452,65 @@ tr:hover {
     margin-bottom: 1rem !important;
   }
 
+}
+
+/* Overlay Styles */
+.subject-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 5, 0.808);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.subject-overlay-form {
+  background: rgb(151, 203, 240);
+  padding: 2rem !important;
+  border-radius: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subject-overlay-form input {
+  padding: 0.5rem !important;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.subject-form-buttons {
+  display: flex;
+  justify-content: center; /* center them */
+  gap: 0.5rem; /* space between */
+  flex-wrap: wrap;
+}
+
+.subject-form-buttons button {
+  padding: 0.5rem 1rem !important;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.subject-form-buttons .subject-delete-button {
+  background-color: red;
+  color: white;
+}
+
+.subject-delete-button:hover{
+  background-color: rgba(255, 0, 0, 0.553);
+}
+
+.subject-update-button{
+  background-color: #32ae42;
+}
+
+.subject-update-button:hover{
+  background-color: #32ae42a0;
 }
