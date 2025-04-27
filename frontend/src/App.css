@@ -23,7 +23,7 @@ body {
   min-height: 100vh !important; 
 }
 
-/* Navbar Container */
+/* 1. Navbar Container */
 .navbar-section {
   width: 250px !important;
   background-color: #158BF2 !important;
@@ -165,4 +165,219 @@ main {
   .logout-button-li{
     margin-bottom: 20px;
   }
+}
+
+
+/* 2. Admin dashboard  */
+
+.admin-container{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin-header{
+  text-align: center;
+  font-family: fantasy;
+  padding: 30px;
+}
+.admin-header h1{
+  font-weight: bold;
+  padding: 10px !important;
+}
+
+.admin-subcontainer{
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  height: 80vh;
+  
+}
+.admin-subcontainer h2{
+  text-align: center;
+  font-family: serif;
+}
+
+
+.admin-users-container,.admin-subject-container,.admin-classroom-container{
+
+  background-color: #158bf26d;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.145);
+  flex: 1;
+  padding: 20px !important; 
+  
+  
+}
+
+
+/* 2.1 Userlist */
+
+.userlist-container{
+  padding: 20px !important;
+}
+
+
+/* Role selection buttons */
+.userlist-btn-1{
+  background-color: #32ae42;
+  height: 3rem;
+  width: 5rem;
+  margin: 25px !important;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
+}
+
+.userlist-btn-2{
+  background-color: #ee4b5b;
+  height: 3rem;
+  width: 5rem;
+  margin: 25px !important;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
+}
+
+.userlist-btn-3{
+  background-color: #158BF2;
+  height: 3rem;
+  width: 5rem;
+  margin: 25px !important;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
+}
+
+.userlist-button-container button:hover{
+  background-color: #edf03237;
+}
+
+
+
+/* Modal Overlay for Background Blur */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+/* Modal Dialog */
+.modal-dialog {
+  max-width: 800px;
+  width: 90%;
+  
+  
+}
+
+/* Modal Content Styling */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);
+  
+  padding: 20px !important;
+  max-height: 50vh;
+  
+}
+
+.modal-title{
+  text-align: center;
+  color: white;
+}
+
+.modal-body{
+  height: 50vh;
+  overflow: scroll;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  margin-top: 20px !important;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Adds space between rows */
+}
+
+th, td {
+  padding: 12px 15px !important;
+  text-align: left;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+}
+
+tr {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: #f1f1f1; /* Light gray for even rows */
+}
+
+tr:hover {
+  background-color: #e9ecef; /* Light hover effect */
+}
+
+.modal-content button {
+  border-radius: 5px;
+  padding: 5px !important;
+
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Close Button */
+.btn-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Confirm deletion modal */
+.delete-modal-body{
+  color: black;
+  background-color: #fafbfcec;
+  border-radius: 10px;
+  margin: 20px !important;
+}
+
+/* 2.2 add user form */
+
+.input-group-eye-button{
+  margin-left: 10px !important;
+  border: 0px;
+  background-color: white;
 }

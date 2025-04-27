@@ -69,14 +69,23 @@ const Navbar = () => {
         ) : (
           <>
             {isSuperUser ? (
-              <li><Link to="/admin-dashboard" onClick={closeMenu}>Admin Dashboard</Link></li> 
+              <>
+              <li><Link to="/admin-dashboard" onClick={closeMenu}>Admin Dashboard</Link></li>
+              <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+              </> 
             ) : (
               <>
                 {userRole === "teacher" && (
+                  <>
                   <li><Link to="/teacher-dashboard" onClick={closeMenu}>Teacher Dashboard</Link></li>
+                  <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+                  </>
                 )}
                 {userRole === "student" && (
+                  <>
                   <li><Link to="/student-dashboard" onClick={closeMenu}>Student Dashboard</Link></li>
+                  <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+                  </>
                 )}
               </>
             )}

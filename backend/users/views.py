@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from .models import CustomUser
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -40,12 +41,14 @@ class LoginView(APIView):
         return Response(serializer.errors, status=400)
 
 class GetAllStudents(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         students = CustomUser.objects.filter(role='student')
         serializer = UserSerializer(students, many=True)
         return Response(serializer.data)
 
 class GetAllTeachers(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         teachers = CustomUser.objects.filter(role='teacher')
         serializer = UserSerializer(teachers, many=True)
