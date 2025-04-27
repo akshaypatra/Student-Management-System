@@ -2,9 +2,10 @@ import React from 'react'
 import UserList from './AdminDashboardComponents/UserList'
 import SubjectList from './AdminDashboardComponents/SubjectList'
 import ClassroomList from './AdminDashboardComponents/ClassroomList'
-
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   return (
     <section className='admin-container'>
       <header className='admin-header'>
@@ -21,6 +22,7 @@ export default function AdminDashboard() {
         <div className='admin-subject-container'>
           <h2>Subjects</h2>
           <SubjectList/>
+          <button className='add-subject-button' onClick={()=>navigate("/add-subject")} >Add subject</button>
         </div>
 
         <div className='admin-classroom-container'>
@@ -30,8 +32,8 @@ export default function AdminDashboard() {
         
 
       </div>
-
       
     </section>
   )
 }
+

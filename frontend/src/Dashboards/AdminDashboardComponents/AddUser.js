@@ -73,7 +73,7 @@ export default function AddUser() {
           User Registration
         </h2>
 
-        {/* Contact Form */}
+        {/* User Registration Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label

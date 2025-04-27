@@ -8,6 +8,7 @@ import StudentDashboard from './Dashboards/StudentDashboard';
 import Contact from './Components/Contact';
 import Login from './Pages/Login';
 import AddUser from './Dashboards/AdminDashboardComponents/AddUser';
+import AddSubject from './Dashboards/AdminDashboardComponents/AddSubject';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path='/register' element={<AddUser/>}/>
+          <Route path='/add-subject' element={<AddSubject/>}/>
         </Routes>
         </section>
       </div>

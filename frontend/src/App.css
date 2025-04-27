@@ -91,12 +91,14 @@ main {
 .logout-button{
   border: 0px;
   border-radius: 4px;
-  padding: 10px;
+  padding: 5px !important;
   font-size: 20px;
-  width: 70px;
+  margin-top: 20px !important;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.478);
 }
 .logout-button:hover{
-  background-color: #f2a487;
+  background-color: #76a4e8e3;
 }
 
 .icons{
@@ -163,7 +165,7 @@ main {
   }
 
   .logout-button-li{
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 }
 
@@ -206,10 +208,18 @@ main {
   border-radius: 20px;
   text-align: center;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.145);
-  flex: 1;
   padding: 20px !important; 
   
   
+  
+}
+
+.admin-subject-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers horizontally */
+  align-items: center; 
+
 }
 
 
@@ -228,8 +238,7 @@ main {
   margin: 25px !important;
   border: 0px;
   border-radius: 5px;
-  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
-}
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);}
 
 .userlist-btn-2{
   background-color: #ee4b5b;
@@ -238,8 +247,7 @@ main {
   margin: 25px !important;
   border: 0px;
   border-radius: 5px;
-  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
-}
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);}
 
 .userlist-btn-3{
   background-color: #158BF2;
@@ -248,8 +256,7 @@ main {
   margin: 25px !important;
   border: 0px;
   border-radius: 5px;
-  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.207);
-}
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);}
 
 .userlist-button-container button:hover{
   background-color: #edf03237;
@@ -380,4 +387,65 @@ tr:hover {
   margin-left: 10px !important;
   border: 0px;
   background-color: white;
+}
+
+
+/* 2.3 subject list */
+.subject-container{
+  margin-top: 1rem !important;
+  text-align: center !important;
+  overflow: scroll;
+  width: 100%;
+}
+
+.subject-list-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; /* centers horizontally */
+  align-items: center;     /* centers vertically */
+  gap: 2rem;
+  list-style: none;
+  padding: 20px !important;
+}
+
+.subject-list{
+  background-color: #007bff;
+  padding: 10px !important;
+
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.556);
+}
+
+.add-subject-button{
+  background-color:  #00c8ff;
+  padding: 5px !important;
+  border: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+  margin-bottom: 10px !important;
+  border-radius: 10px;
+}
+.add-subject-button:hover{
+  background-color:  #00c8ff7f;
+}
+
+@media (max-width: 760px) {
+  .subject-list{
+    width: 20rem !important;
+   
+  }
+  .subject-list-container{
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    justify-content: center; /* centers horizontally */
+    align-items: center;     /* centers vertically */
+    gap: 2rem;
+    list-style: none;
+    padding: 20px !important;
+    max-height: 30vh;
+    overflow: auto;
+    margin-bottom: 1rem !important;
+  }
+
 }
