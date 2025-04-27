@@ -308,7 +308,35 @@ def get_all_subjects(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+"""
+13. Delete a subject
+"""
 
+@api_view(['DELETE'])
+def delete_subject(request, subject_id):
+    try:
+        subject = Subject.objects.get(id=subject_id)
+        subject.delete()
+        return Response({'message': 'Subject deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
+    except Subject.DoesNotExist:
+        return Response({'error': 'Subject not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+"""
+14. Update a subject
+"""
+
+@api_view(['PUT'])
+def update_subject(request, subject_id):
+    try:
+        subject = Subject.objects.get(id=subject_id)
+    except Subject.DoesNotExist:
+        return Response({'error': 'Subject not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = SubjectSerializer(subject, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
