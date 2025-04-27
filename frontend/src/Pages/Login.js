@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
-import { FaUserCircle } from 'react-icons/fa'; /
+import { FaUserCircle } from 'react-icons/fa'; 
 
 function Login() {
   const navigate = useNavigate();
