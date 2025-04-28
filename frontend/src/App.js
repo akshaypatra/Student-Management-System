@@ -9,6 +9,7 @@ import Contact from './Components/Contact';
 import Login from './Pages/Login';
 import AddUser from './Dashboards/AdminDashboardComponents/AddUser';
 import AddSubject from './Dashboards/AdminDashboardComponents/AddSubject';
+import UpdateClassroom from './Dashboards/AdminDashboardComponents/UpdateClassroom';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path='/register' element={<AddUser/>}/>
           <Route path='/add-subject' element={<AddSubject/>}/>
+          <Route path="/update-classroom/:classroomId" element={<UpdateClassroom/>} />
         </Routes>
         </section>
       </div>

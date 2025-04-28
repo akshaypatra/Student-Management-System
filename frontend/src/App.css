@@ -514,3 +514,30 @@ tr:hover {
 .subject-update-button:hover{
   background-color: #32ae42a0;
 }
+
+/* 2.4 classroomList styles */
+
+/* .classroom-container{
+  
+  border: 1px solid black;
+} */
+
+.classroom-list-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: auto;
+  gap: 1rem;
+  max-height: 30vh;
+  padding: 1rem !important;
+}
+
+.classroom-list{
+  padding: 1rem !important;
+  background-color: #007bffa6;
+  border-radius: 10px;
+  width: 250px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+}
