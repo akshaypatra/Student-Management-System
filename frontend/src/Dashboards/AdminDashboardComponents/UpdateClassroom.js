@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateClassroom() {
+    
   const { classroomId } = useParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -9,6 +11,8 @@ export default function UpdateClassroom() {
     teacher: "",
     students: [],
   });
+
+  const navigate=useNavigate();
 
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -112,6 +116,13 @@ export default function UpdateClassroom() {
 
         if (response.ok) {
           alert("Classroom deleted successfully!");
+          setFormData({
+            name: "",
+            subject: "",
+            teacher: "",
+            students: [], 
+          });
+          navigate("/admin-dashboard");
         } else {
           alert("Error: Failed to delete the classroom.");
         }
