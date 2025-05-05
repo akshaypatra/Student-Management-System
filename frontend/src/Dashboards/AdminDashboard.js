@@ -28,6 +28,7 @@ export default function AdminDashboard() {
         <div className='admin-classroom-container'>
           <h2>Classrooms</h2>
           <ClassroomList/>
+          <button className='add-subject-button' onClick={()=>navigate("/add-classroom")} >Add Classroom</button>
         </div>
         
 

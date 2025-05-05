@@ -10,6 +10,7 @@ import Login from './Pages/Login';
 import AddUser from './Dashboards/AdminDashboardComponents/AddUser';
 import AddSubject from './Dashboards/AdminDashboardComponents/AddSubject';
 import UpdateClassroom from './Dashboards/AdminDashboardComponents/UpdateClassroom';
+import AddClassroomForm from './Dashboards/AdminDashboardComponents/AddClassroomForm';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/register' element={<AddUser/>}/>
           <Route path='/add-subject' element={<AddSubject/>}/>
           <Route path="/update-classroom/:classroomId" element={<UpdateClassroom/>} />
+          <Route path="/add-classroom" element={<AddClassroomForm/>} />
         </Routes>
         </section>
       </div>

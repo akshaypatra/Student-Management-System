@@ -537,9 +537,13 @@ tr:hover {
   padding: 1rem !important;
   background-color: #007bffa6;
   border-radius: 10px;
-  width: 250px;
+  
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+}
+
+.classroom-list:hover{
+  background-color: #007bff60;
 }
 
 .classroom-search{
@@ -585,4 +589,15 @@ tr:hover {
 #classroom-update-students-innercontainer{
   max-height: 25vh;
   overflow: scroll;
+}
+
+/* add -classroom form */
+
+.add-classroom-form input,.add-classroom-form select{
+  padding: 5px !important;
+  color: grey;
+}
+.add-classroom-form label{
+  margin-bottom: 10px !important;
+
 }
