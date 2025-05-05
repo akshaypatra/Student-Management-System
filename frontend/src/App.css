@@ -394,7 +394,7 @@ tr:hover {
 .subject-container{
   margin-top: 1rem !important;
   text-align: center !important;
-  overflow: scroll;
+  overflow: auto;
   width: 100%;
 }
 
@@ -540,4 +540,49 @@ tr:hover {
   width: 250px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+}
+
+.classroom-search{
+  padding: 0.5rem !important;
+  margin: 20px !important;
+  width: 300px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: #eeeff036;
+}
+
+/*Classroom  Update form */
+
+#classroom-update-container-1{
+  border-radius: 10px;
+}
+
+#classroom-update-container input,#classroom-update-container select{
+ padding: 5px !important;
+
+}
+.classroom-update-students-container{
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  
+  background-color: rgba(53, 119, 160, 0.106);
+  border-radius: 10px;
+  padding: 10px !important;
+}
+
+.classroom-update-students-container button{
+  padding: 5px !important;
+}
+
+.classroom-update-students-container input{
+  padding: 5px !important;
+}
+
+.classroom-update-students-container label{
+ font-weight: bold;
+}
+
+#classroom-update-students-innercontainer{
+  max-height: 25vh;
+  overflow: scroll;
 }

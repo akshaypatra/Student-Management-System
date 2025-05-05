@@ -47,12 +47,8 @@ export default function ClassroomList() {
           placeholder="Search by subject..."
           value={searchQuery}
           onChange={handleSearch}
-          style={{
-            padding: "0.5rem",
-            width: "300px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-          }}
+          className="classroom-search"
+          
         />
       </div>
 

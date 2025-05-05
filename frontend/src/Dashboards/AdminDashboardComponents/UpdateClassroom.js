@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function UpdateClassroom() {
-    
   const { classroomId } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     subject: "",
@@ -12,78 +12,88 @@ export default function UpdateClassroom() {
     students: [],
   });
 
-  const navigate=useNavigate();
 
-  const [classrooms, setClassrooms] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentClassroom, setCurrentClassroom] = useState(null); // New state to hold the selected classroom
 
-  // Fetch classrooms and set the current classroom based on the classroomId
   useEffect(() => {
-    async function fetchClassrooms() {
+    async function fetchClassroom() {
       try {
         const response = await fetch(
           "http://127.0.0.1:8000/api/attendance/classrooms/"
         );
         const data = await response.json();
-        if (response.ok) {
-          setClassrooms(data); // Store the list of classrooms
-          // Now filter and set the specific classroom based on classroomId
-          const classroom = data.find(
-            (classroom) => classroom.id.toString() === classroomId
-          );
-          if (classroom) {
-            setCurrentClassroom(classroom);
-            setFormData({
-              name: classroom.name,
-              subject: classroom.subject.name,
-              teacher: classroom.teacher,
-              students: classroom.students.join(", "), // Convert students array to a comma-separated string for easier editing
-            });
-          } else {
-            alert("Classroom not found.");
-          }
-          setLoading(false);
+
+        const classroom = data.find(
+          (classroom) => classroom.id.toString() === classroomId
+        );
+
+        if (classroom) {
+          setFormData({
+            name: classroom.name,
+            subject: classroom.subject.name,
+            teacher: classroom.teacher,
+            students: classroom.students || [],
+          });
         } else {
-          alert("Failed to fetch classrooms.");
-          setLoading(false);
+          alert("Classroom not found.");
         }
+
+        // Get teachers list with token from localStorage
+        const token = localStorage.getItem('access_token'); // Assuming your token is stored as 'authToken' in localStorage
+        const teacherRes = await fetch("http://127.0.0.1:8000/api/teachers/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const teacherData = await teacherRes.json();
+        setTeachers(teacherData);
+
       } catch (error) {
-        console.error("Error during classroom fetch:", error);
-        alert("An error occurred while fetching classrooms.");
+        console.error("Error fetching classroom:", error);
+        alert("An error occurred while fetching the classroom.");
+      } finally {
         setLoading(false);
       }
     }
 
-    fetchClassrooms();
-  }, [classroomId]); // Refetch classrooms only if classroomId changes
+    fetchClassroom();
+  }, [classroomId]);
 
-  // Handle form field changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value }); // No splitting here
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit (update classroom)
+  const handleStudentChange = (index, value) => {
+    const updatedStudents = [...formData.students];
+    updatedStudents[index] = value;
+    setFormData({ ...formData, students: updatedStudents });
+  };
+
+  const handleAddStudent = () => {
+    setFormData({ ...formData, students: [...formData.students, ""] });
+  };
+
+  const handleRemoveStudent = (index) => {
+    const updatedStudents = formData.students.filter((_, i) => i !== index);
+    setFormData({ ...formData, students: updatedStudents });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare payload for updating the classroom
     const payload = {
       name: formData.name,
-      subject: formData.subject,
       teacher: formData.teacher,
-      students: formData.students.split(",").map((student) => student.trim()), // Now split it properly here
+      students: formData.students.map((s) => s.trim()).filter(Boolean),
     };
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/`,
+        `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/update/`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
@@ -95,179 +105,108 @@ export default function UpdateClassroom() {
         alert(`Error: ${data.message || "Failed to update classroom"}`);
       }
     } catch (error) {
-      console.error("Error during classroom update:", error);
+      console.error("Error during update:", error);
       alert("An error occurred while updating the classroom.");
     }
   };
 
-  // Handle delete request
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this classroom?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this classroom?");
     if (confirmDelete) {
       try {
         const response = await fetch(
           `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/delete/`,
-          {
-            method: "DELETE", // DELETE request to remove the classroom
-          }
+          { method: "DELETE" }
         );
 
         if (response.ok) {
           alert("Classroom deleted successfully!");
-          setFormData({
-            name: "",
-            subject: "",
-            teacher: "",
-            students: [], 
-          });
           navigate("/admin-dashboard");
         } else {
-          alert("Error: Failed to delete the classroom.");
+          alert("Failed to delete the classroom.");
         }
       } catch (error) {
-        console.error("Error during classroom delete:", error);
+        console.error("Error deleting classroom:", error);
         alert("An error occurred while deleting the classroom.");
       }
     }
   };
 
-  // Show a loading message if still fetching classrooms
-  if (loading) {
-    return <div>Loading classrooms...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div
-      className="container-fluid d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div
-        className="card p-5 shadow"
-        style={{ width: "100%", maxWidth: "550px" }}
-      >
-        {/* Heading */}
-        <h2
-          className="text-center mb-4 text-success fw-bold"
-          style={{ fontSize: "2rem" }}
-        >
-          Update Classroom
-        </h2>
+    <div className="container-fluid d-flex justify-content-center align-items-center" id="classroom-update-container" style={{ minHeight: "100vh" }}>
+      <div className="card p-5 shadow" id="classroom-update-container-1" style={{ width: "100%", maxWidth: "600px" }}>
+        <h2 className="text-center mb-4 text-success fw-bold">Classroom Details</h2>
 
-        {/* Update Classroom Form */}
         <form onSubmit={handleSubmit}>
-          {/* ID is not editable */}
           <div className="mb-4">
-            <label
-              htmlFor="id"
-              className="form-label"
-              style={{ fontSize: "1.1rem" }}
-            >
-              Classroom ID
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="id"
-              name="id"
-              value={classroomId} // The ID is passed as a prop and cannot be changed here
-              readOnly
-            />
+            <label className="form-label">Classroom ID</label>
+            <input type="text" className="form-control" value={classroomId} readOnly />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="form-label"
-              style={{ fontSize: "1.1rem" }}
-            >
-              Classroom Name
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+            <label className="form-label">Classroom Name</label>
+            <input type="text" className="form-control" name="name" value={formData.name} onChange={handleChange} readOnly />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="subject"
-              className="form-label"
-              style={{ fontSize: "1.1rem" }}
-            >
-              Subject
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
+            <label className="form-label">Subject</label>
+            <input type="text" className="form-control" name="subject" value={formData.subject} onChange={handleChange} readOnly  />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="teacher"
-              className="form-label"
-              style={{ fontSize: "1.1rem" }}
-            >
-              Teacher
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="teacher"
+            <label className="form-label">Teacher</label>
+            <select
               name="teacher"
+              className="form-control"
               value={formData.teacher}
               onChange={handleChange}
               required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="students"
-              className="form-label"
-              style={{ fontSize: "1.1rem" }}
             >
-              Students (comma separated)
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="students"
-              name="students"
-              value={formData.students} 
-              onChange={handleChange}
-              required
-            />
+              <option value="">Select Teacher</option>
+              {teachers.map((teacher) => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.name} ({teacher.email})
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="d-grid mb-4">
-            <button type="submit" className="btn btn-success btn-lg">
-              Update Classroom
+          <div className="classroom-update-students-container">
+            <label className="form-label">  Students </label>
+            <div id="classroom-update-students-innercontainer">
+            {formData.students.map((student, index) => (
+              <div className="input-group mb-2"  key={index}>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={student}
+                  onChange={(e) => handleStudentChange(index, e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={() => handleRemoveStudent(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            </div>
+            <button type="button" className="btn btn-outline-primary" onClick={handleAddStudent}>
+              Add Student
             </button>
+          </div>
+
+          <div className="d-grid mb-3">
+            <button type="submit" className="btn btn-success btn-lg">Update Classroom</button>
           </div>
         </form>
 
-        {/* Delete Button */}
         <div className="d-grid">
-          <button
-            type="button"
-            className="btn btn-danger btn-lg"
-            onClick={handleDelete}
-          >
-            Delete Classroom
-          </button>
+          <button type="button" className="btn btn-danger btn-lg" onClick={handleDelete}>Delete Classroom</button>
         </div>
       </div>
     </div>

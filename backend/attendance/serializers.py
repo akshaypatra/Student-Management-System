@@ -35,13 +35,16 @@ class CreateClassRoomSerializer(serializers.ModelSerializer):
 
 
 class UpdateClassRoomSerializer(serializers.ModelSerializer):
-    subject = serializers.PrimaryKeyRelatedField(queryset=Subject.objects.all(), required=False)
-    teacher = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.filter(role='teacher'), required=False)
+    teacher = serializers.SlugRelatedField(
+        slug_field='id',
+        queryset=CustomUser.objects.filter(role='teacher'),
+        required=False
+    )
     students = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.filter(role='student'), many=True, required=False)
 
     class Meta:
         model = ClassRoom
-        fields = ['name', 'subject', 'teacher', 'students']
+        fields = ['name','teacher', 'students']
     
 class CorrectionRequestSerializer(serializers.ModelSerializer):
     class Meta:
