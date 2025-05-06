@@ -25,6 +25,7 @@ function Login() {
 
       localStorage.setItem('access_token', tokens.access);
       localStorage.setItem('refresh_token', tokens.refresh);
+      localStorage.setItem('id', user.id);
       localStorage.setItem('user_role', user.role);
       localStorage.setItem('user_name', user.name);
       localStorage.setItem('is_superuser', user.is_superuser);

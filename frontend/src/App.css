@@ -555,7 +555,7 @@ tr:hover {
   background-color: #eeeff036;
 }
 
-/*Classroom  Update form */
+/*2.5 Classroom  Update form */
 
 #classroom-update-container-1{
   border-radius: 10px;
@@ -591,7 +591,7 @@ tr:hover {
   overflow: scroll;
 }
 
-/* add -classroom form */
+/* 2.6 add -classroom form */
 
 .add-classroom-form input,.add-classroom-form select{
   padding: 5px !important;
@@ -601,3 +601,146 @@ tr:hover {
   margin-bottom: 10px !important;
 
 }
+
+
+/* 3 Teacher dashboard */
+
+.teacher-dashboard-container{
+  text-align: center;
+}
+
+.teacher-dashboard-container h1{
+  font-family: cursive;
+  margin: 20px !important;
+}
+
+/* 3.1 class-list-container */
+
+.class-list-container{
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+  background-color: rgba(255, 255, 255, 0.165);
+  border-radius: 10px;
+}
+
+.class-list-inner-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem !important;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.classlist-button{
+  padding: 1.2rem !important;
+  border: 0px ;
+  border-radius: 10px;
+  background-color: #007bff8f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+
+}
+
+.classlist-button:hover{
+  background-color:#007bff4e; ;
+}
+
+/* 3.2 attendance view */
+
+.attendance-view-container{
+  overflow: auto;
+  max-height: 70vh;
+  margin-top: 2rem !important;
+  
+}
+
+.attendance-view-table{
+  border: 0px;
+  border-radius: 10px;
+ 
+}
+
+.attendance-export-buttons{
+  display: flex;
+  justify-content: end;
+  gap: 1.2rem;
+  margin: 20px !important;
+}
+
+.attendance-export-buttons button{
+  background-color: #007bff8b;
+  padding: 0.5rem !important;
+  border: 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+
+}
+
+/* 3.3 mark attendance */
+
+.mark-attendance-container{
+  text-align: center;
+}
+
+.mark-attendance-container h1{
+  text-align: center;
+  margin-top: 1.2rem !important;
+  margin-bottom: 1rem !important;
+  font-family: cursive;
+
+}
+
+.mark-attendance-select-date-label{
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 2rem !important;
+}
+
+.mark-attendance-select-date-label input{
+  padding: 0.2rem !important;
+}
+
+.mark-attendance-table-container{
+  overflow: auto;
+  max-height: 70vh;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.mark-attendance-table-container table{
+  border: 0px;
+}
+
+.mark-attendance-buttons-div{
+  display: flex;
+  gap: 1rem;
+}
+
+.mark-attendance-buttons-div button{
+  border: 1px solid black;
+  padding: 0.2rem !important;
+  border-radius: 10px;
+
+}
+.mark-attendance-buttons-div button:hover{
+  background-color: rgba(137, 216, 80, 0.655);
+}
+
+.mark-attendance-submit-button{
+  background-color: rgb(150, 222, 42);
+  padding: 0.4rem !important;
+  border: 0px;
+  /* border: 1px solid grey; */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+}
+
+.mark-attendance-submit-button:hover{
+  background-color: rgba(134, 220, 5, 0.905);
+
+}
+
