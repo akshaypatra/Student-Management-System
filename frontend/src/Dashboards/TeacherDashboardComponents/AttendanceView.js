@@ -129,9 +129,10 @@ const AttendanceView = () => {
   };
 
   return (
-    <div>
-      <h2>Attendance for Class {className}</h2>
-      <h3>Class Strength : {classStrength}</h3>
+    <div >
+      <h2 className="attendance-sheet-h2">Attendance Sheet : {className}</h2>
+      <hr></hr>
+      <h3 className="attendance-sheet-h3" >Class Strength : {classStrength}</h3>
 
       <div className="attendance-view-container">
         <table border="1" cellPadding="8" className="attendance-view-table">
