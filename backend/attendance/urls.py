@@ -12,6 +12,7 @@ urlpatterns = [
     # 2. Attendance Management
     path('mark/', views.mark_attendance, name='mark_attendance'),
     path('classrooms/<int:classroom_id>/attendance/', views.get_classroom_attendance, name='get_classroom_attendance'),
+    path('update/', views.update_attendance, name='update_attendance'),
     
     # 3. Attendance Correction Request
     path('corrections/create/', views.create_attendance_correction, name='create_attendance_correction'),

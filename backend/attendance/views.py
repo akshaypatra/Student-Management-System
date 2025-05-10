@@ -186,6 +186,70 @@ def mark_attendance(request):
     return Response({"message": "Attendance marked successfully"}, status=status.HTTP_200_OK)
 
 
+'''
+6.2 update attendance of students
+'''
+
+@api_view(['PUT'])
+def update_attendance(request):
+    classroom_id = request.data.get('classroom_id')
+    date = request.data.get('date')
+    updates = request.data.get('updates')  # Optional: List of {"student_id": id, "status": "present"/"absent"}
+    delete_for_all = request.data.get('delete', False)
+
+    if not classroom_id or not date:
+        return Response({"error": "classroom_id and date are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+    classroom = ClassRoom.objects.filter(id=classroom_id).first()
+    if not classroom:
+        return Response({"error": "Classroom not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    if delete_for_all:
+        # Remove the date entry for all students in the classroom
+        students = classroom.students.all()
+        for student in students:
+            record = AttendanceTable.objects.filter(classroom=classroom, enrollment_number=student.id).first()
+            if record and record.attendance_dates and date in record.attendance_dates:
+                if record.attendance_dates[date] == 'present':
+                    record.total_attendance -= 1
+                del record.attendance_dates[date]
+                record.save()
+        return Response({"message": f"Attendance for {date} deleted for all students."}, status=status.HTTP_200_OK)
+
+    if not updates:
+        return Response({"error": "Either 'updates' must be provided or 'delete' set to true."}, status=status.HTTP_400_BAD_REQUEST)
+
+    for update in updates:
+        student_id = update.get('student_id')
+        new_status = update.get('status')
+
+        student = CustomUser.objects.filter(id=student_id, role='student').first()
+        if not student:
+            return Response({"error": f"Student with ID {student_id} not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        if student not in classroom.students.all():
+            return Response({"error": f"Student {student.get_full_name()} is not in this classroom."}, status=status.HTTP_400_BAD_REQUEST)
+
+        record = AttendanceTable.objects.filter(classroom=classroom, enrollment_number=student.id).first()
+        if not record:
+            return Response({"error": f"No attendance record found for student {student.get_full_name()}."}, status=status.HTTP_404_NOT_FOUND)
+
+        old_status = record.attendance_dates.get(date)
+
+        # Adjust total_attendance if needed
+        if old_status == 'present' and new_status != 'present':
+            record.total_attendance -= 1
+        elif old_status != 'present' and new_status == 'present':
+            record.total_attendance += 1
+
+        record.attendance_dates[date] = new_status
+        record.save()
+
+    return Response({"message": "Attendance updated successfully."}, status=status.HTTP_200_OK)
+
+
+
+
 """
 7. Get the attendance table for a classroom
 """
