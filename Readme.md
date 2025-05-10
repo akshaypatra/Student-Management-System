@@ -60,6 +60,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 
+```
 
 
 ### Frontend (Rect)
@@ -68,3 +69,4 @@ python manage.py runserver
 cd frontend
 npm install
 npm start
+```
