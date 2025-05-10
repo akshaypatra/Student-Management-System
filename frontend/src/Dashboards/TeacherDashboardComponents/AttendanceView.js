@@ -52,7 +52,6 @@ const AttendanceView = () => {
 
   const classStrength = attendanceData.length;
 
-
   const calculateStats = (student) => {
     let present = 0;
     let absent = 0;
@@ -128,11 +127,59 @@ const AttendanceView = () => {
     return presentCounts;
   };
 
+  const handleUpdateAttendance = (studentId, date, currentStatus) => {
+    // Toggle status logic
+    let newStatus = null;
+    if (currentStatus === "present") newStatus = "absent";
+    else if (currentStatus === "absent") newStatus = "present";
+    else newStatus = "present"; // If not marked yet, mark as present
+
+    fetch(
+      `http://127.0.0.1:8000/api/attendance/update/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          classroom_id: parseInt(classId),
+          date: date,
+          updates: [
+            {
+              student_id: studentId,
+              status: newStatus,
+            },
+          ],
+        }),
+      }
+    )
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to update attendance");
+        return res.json();
+      })
+      .then(() => {
+        // Update local state
+        setAttendanceData((prevData) =>
+          prevData.map((student) => {
+            if (student.enrollment_number === studentId) {
+              const updatedDates = {
+                ...student.attendance_dates,
+                [date]: newStatus,
+              };
+              return { ...student, attendance_dates: updatedDates };
+            }
+            return student;
+          })
+        );
+      })
+      .catch((err) => alert("Error updating attendance: " + err.message));
+  };
+
   return (
-    <div >
+    <div>
       <h2 className="attendance-sheet-h2">Attendance Sheet : {className}</h2>
       <hr></hr>
-      <h3 className="attendance-sheet-h3" >Class Strength : {classStrength}</h3>
+      <h3 className="attendance-sheet-h3">Class Strength : {classStrength}</h3>
 
       <div className="attendance-view-container">
         <table border="1" cellPadding="8" className="attendance-view-table">
@@ -163,7 +210,18 @@ const AttendanceView = () => {
                   {allDates.map((date) => {
                     const status = student.attendance_dates?.[date];
                     return (
-                      <td key={date}>
+                      <td
+                        key={date}
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          handleUpdateAttendance(
+                            student.enrollment_number,
+                            date,
+                            status
+                          )
+                        }
+                        title="Click to toggle"
+                      >
                         {status === "present"
                           ? "✅"
                           : status === "absent"
