@@ -134,25 +134,22 @@ const AttendanceView = () => {
     else if (currentStatus === "absent") newStatus = "present";
     else newStatus = "present"; // If not marked yet, mark as present
 
-    fetch(
-      `http://127.0.0.1:8000/api/attendance/update/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          classroom_id: parseInt(classId),
-          date: date,
-          updates: [
-            {
-              student_id: studentId,
-              status: newStatus,
-            },
-          ],
-        }),
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        classroom_id: parseInt(classId),
+        date: date,
+        updates: [
+          {
+            student_id: studentId,
+            status: newStatus,
+          },
+        ],
+      }),
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to update attendance");
         return res.json();
@@ -175,6 +172,48 @@ const AttendanceView = () => {
       .catch((err) => alert("Error updating attendance: " + err.message));
   };
 
+  const handleDeleteAttendance = (date) => {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete attendance for ${formatDate(date)}?`
+      )
+    ) {
+      return;
+    }
+
+    fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        delete: true,
+        classroom_id: parseInt(classId),
+        date: date,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to delete attendance");
+        return res.json();
+      })
+      .then((data) => {
+        // Refresh attendance view
+        setAttendanceData((prevData) =>
+          prevData.map((student) => {
+            if (student.attendance_dates && student.attendance_dates[date]) {
+              const newDates = { ...student.attendance_dates };
+              delete newDates[date];
+              return { ...student, attendance_dates: newDates };
+            }
+            return student;
+          })
+        );
+
+        setAllDates((prevDates) => prevDates.filter((d) => d !== date));
+      })
+      .catch((err) => alert("Error deleting attendance: " + err.message));
+  };
+
   return (
     <div>
       <h2 className="attendance-sheet-h2">Attendance Sheet : {className}</h2>
@@ -191,8 +230,16 @@ const AttendanceView = () => {
               <th>Present Days</th>
               <th>Absent Days</th>
               <th>Attendance %</th>
+              {/* Header with DELETE on click */}
               {allDates.map((date) => (
-                <th key={date}>{formatDate(date)}</th>
+                <th
+                  key={date}
+                  style={{ cursor: "pointer" }}
+                  title="Click to delete attendance for this date"
+                  onClick={() => handleDeleteAttendance(date)}
+                >
+                  {formatDate(date)} 
+                </th>
               ))}
             </tr>
           </thead>
@@ -207,6 +254,7 @@ const AttendanceView = () => {
                   <td>{present}</td>
                   <td>{absent}</td>
                   <td>{percentage}%</td>
+
                   {allDates.map((date) => {
                     const status = student.attendance_dates?.[date];
                     return (
