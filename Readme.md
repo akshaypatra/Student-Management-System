@@ -63,7 +63,7 @@ python manage.py runserver
 ```
 
 
-### Frontend (Rect)
+### Frontend (React)
 
 ```bash
 cd frontend
