@@ -50,6 +50,9 @@ const AttendanceView = () => {
       .catch((err) => console.error("Error:", err));
   }, [classId]);
 
+  const classStrength = attendanceData.length;
+
+
   const calculateStats = (student) => {
     let present = 0;
     let absent = 0;
@@ -111,9 +114,24 @@ const AttendanceView = () => {
     link.click();
   };
 
+  const getDailyPresentCounts = () => {
+    const presentCounts = {};
+    allDates.forEach((date) => {
+      let count = 0;
+      attendanceData.forEach((student) => {
+        if (student.attendance_dates?.[date] === "present") {
+          count++;
+        }
+      });
+      presentCounts[date] = count;
+    });
+    return presentCounts;
+  };
+
   return (
     <div>
       <h2>Attendance for Class {className}</h2>
+      <h3>Class Strength : {classStrength}</h3>
 
       <div className="attendance-view-container">
         <table border="1" cellPadding="8" className="attendance-view-table">
@@ -156,12 +174,28 @@ const AttendanceView = () => {
                 </tr>
               );
             })}
+            {/* Total Present Row */}
+            <tr>
+              <td colSpan="6" style={{ fontWeight: "bold" }}>
+                Total Present
+              </td>
+              {allDates.map((date) => {
+                const dailyPresents = getDailyPresentCounts()[date] || 0;
+                return (
+                  <td key={date} style={{ fontWeight: "bold" }}>
+                    {dailyPresents}
+                  </td>
+                );
+              })}
+            </tr>
           </tbody>
         </table>
       </div>
       <div className="attendance-export-buttons">
         <button
-          onClick={() => navigate(`/classrooms/${classId}/mark-attendance/${className}`)}
+          onClick={() =>
+            navigate(`/classrooms/${classId}/mark-attendance/${className}`)
+          }
         >
           Mark Attendance
         </button>
