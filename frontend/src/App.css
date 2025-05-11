@@ -754,3 +754,92 @@ tr:hover {
 
 }
 
+
+/* 4. Student dashboard */
+
+
+/* 4.1 enrolled classes */
+
+.enrolled-classes-container{
+  margin-top: 5rem !important;
+  margin-bottom: 3rem !important;
+  padding: 2rem !important;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.325);
+}
+
+.enrolled-classes-container h2{
+  margin-bottom: 2rem !important;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.enrolled-classes-list-contianer{
+  display: flex;
+  padding: 2rem !important;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem ;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.enrolled-classes-list-button{
+  
+  padding: 1.2rem !important;
+  background-color: #2e8cf0a5;
+  border: 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+}
+
+.enrolled-classes-list-button:hover{
+  background-color: #007bff5c;
+}
+
+
+/* 4.2 attendance component */
+
+
+
+.attendance-component-container-h1{
+  font-family:'Times New Roman', Times, serif;
+  margin-bottom: 1rem !important;
+  text-align: center;
+}
+
+.attendance-component-container-h2{
+  text-align: center;
+  margin-bottom: 1.5rem !important;
+}
+
+.attendance-component-container-h3{
+  margin-bottom: 1rem !important;
+}
+
+.attendance-component-piechart-container{
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.attendance-container-piechart{
+  background-color: rgba(255, 255, 255, 0.222);
+  border-radius: 10px;
+}
+
+
+.attendance-component-barchart-container{
+padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.attendance-component-barchart-container h4{
+  margin-bottom: 2rem !important;
+}
+
+.attendance-container-barchart{
+  background-color: rgba(255, 255, 255, 0.222);
+  border-radius: 10px;
+  padding-top: 1rem !important;
+}

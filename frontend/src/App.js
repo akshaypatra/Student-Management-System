@@ -13,6 +13,7 @@ import UpdateClassroom from './Dashboards/AdminDashboardComponents/UpdateClassro
 import AddClassroomForm from './Dashboards/AdminDashboardComponents/AddClassroomForm';
 import AttendanceView from './Dashboards/TeacherDashboardComponents/AttendanceView';
 import MarkAttendance from './Dashboards/TeacherDashboardComponents/MarkAttendance';
+import AttendanceComponent from './Dashboards/StudentDashboardComponents/AttendanceComponent';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/add-classroom" element={<AddClassroomForm/>} />
           <Route path="/classroom/:classId/:className" element={<AttendanceView/>} />
           <Route path='/classrooms/:classId/mark-attendance/:className' element={<MarkAttendance/>}/>
+          <Route path='/attendance/:classId' element={<AttendanceComponent/>}/>
         </Routes>
         </section>
       </div>
