@@ -105,7 +105,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),  # Increase this to a longer period, e.g., 2 hours
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2300),  # Increase this to a longer period, e.g., 2 hours
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Refresh token can live longer (7 days)
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
