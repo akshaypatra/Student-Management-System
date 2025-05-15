@@ -4,6 +4,7 @@ import SubjectList from './AdminDashboardComponents/SubjectList'
 import ClassroomList from './AdminDashboardComponents/ClassroomList'
 import { useNavigate } from 'react-router-dom';
 
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
   return (

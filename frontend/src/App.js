@@ -14,6 +14,7 @@ import AddClassroomForm from './Dashboards/AdminDashboardComponents/AddClassroom
 import AttendanceView from './Dashboards/TeacherDashboardComponents/AttendanceView';
 import MarkAttendance from './Dashboards/TeacherDashboardComponents/MarkAttendance';
 import AttendanceComponent from './Dashboards/StudentDashboardComponents/AttendanceComponent';
+import QueriesForm from './Dashboards/StudentDashboardComponents/QuriesForm';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/classroom/:classId/:className" element={<AttendanceView/>} />
           <Route path='/classrooms/:classId/mark-attendance/:className' element={<MarkAttendance/>}/>
           <Route path='/attendance/:classId' element={<AttendanceComponent/>}/>
+          <Route path='/query-form' element={<QueriesForm/>}/>
         </Routes>
         </section>
       </div>
