@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ClassRoom, AttendanceTable, Subject, CorrectionRequest
+from .models import ClassRoom, AttendanceTable, Subject,Query
 from users.models import CustomUser  
 
 
@@ -46,7 +46,24 @@ class UpdateClassRoomSerializer(serializers.ModelSerializer):
         model = ClassRoom
         fields = ['name','teacher', 'students']
     
-class CorrectionRequestSerializer(serializers.ModelSerializer):
+
+
+
+class QuerySerializer(serializers.ModelSerializer):
+    student_name = serializers.CharField(source='student.name', read_only=True)
+    teacher_name = serializers.CharField(source='teacher.name', read_only=True)
+
     class Meta:
-        model = CorrectionRequest
-        fields = ['id', 'student', 'attendance_record', 'reason', 'status', 'created_at', 'updated_at']
+        model = Query
+        fields = [
+            'id',
+            'student',
+            'student_name',
+            'teacher',
+            'teacher_name',
+            'message',
+            'status',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['status', 'created_at', 'updated_at', 'student', 'student_name', 'teacher_name']

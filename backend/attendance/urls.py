@@ -14,10 +14,12 @@ urlpatterns = [
     path('classrooms/<int:classroom_id>/attendance/', views.get_classroom_attendance, name='get_classroom_attendance'),
     path('update/', views.update_attendance, name='update_attendance'),
     
-    # 3. Attendance Correction Request
-    path('corrections/create/', views.create_attendance_correction, name='create_attendance_correction'),
-    path('corrections/', views.view_all_corrections, name='view_all_corrections'),
-    path('corrections/<int:request_id>/', views.approve_or_reject_correction, name='approve_or_reject_correction'),
+    # 3. Queries Request
+    path('queries/create/', views.create_query, name='create-query'),
+    path('queries/', views.list_queries, name='list-queries'),
+    path('queries/<int:pk>/update-status/', views.update_query_status, name='update-query-status'),
+    path('queries/student-status/', views.student_query_status, name='student-query-status'),
+
     
     # 4. Subject Management
     path('subjects/create/', views.create_subject, name='create_subject'),

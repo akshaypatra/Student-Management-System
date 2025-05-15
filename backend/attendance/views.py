@@ -1,12 +1,12 @@
 import pandas as pd
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes,permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser
-
-from .models import ClassRoom, AttendanceTable, CorrectionRequest, Subject
+from rest_framework.permissions import IsAuthenticated
+from .models import ClassRoom, AttendanceTable, Query, Subject
 from .serializers import ClassRoomSerializer, CreateClassRoomSerializer, AttendanceTableSerializer, \
-    UpdateClassRoomSerializer, CorrectionRequestSerializer, SubjectSerializer
+    UpdateClassRoomSerializer, SubjectSerializer,QuerySerializer
 from users.models import CustomUser
 
 
@@ -268,81 +268,89 @@ def get_classroom_attendance(request, classroom_id):
 
 
 """
-8. Create an attendance correction request by the student
+8. Create an query by the student
 """
 
 @api_view(['POST'])
-def create_attendance_correction(request):
-    
-    attendance_id = request.data.get('attendance_id')
-    student_id = request.data.get('student_id')
-    reason = request.data.get('reason')
+@permission_classes([IsAuthenticated])
+def create_query(request):
+    if request.user.role != 'student':
+        return Response({'detail': 'Only students can post queries.'}, status=403)
 
-    # Validate data
-    if not attendance_id or not student_id or not reason:
-        return Response({"error": "Attendance ID, Student ID, and reason are required."}, status=status.HTTP_400_BAD_REQUEST)
+    teacher_id = request.data.get('teacher')
+    message = request.data.get('message')
+
+    if not teacher_id or not message:
+        return Response({'detail': 'Teacher ID and message are required.'}, status=400)
 
     try:
-        attendance_record = AttendanceTable.objects.get(id=attendance_id)
-        student = CustomUser.objects.get(id=student_id)
-
-        # Ensure the student is enrolled in the classroom for the attendance record
-        if attendance_record.classroom not in student.enrolled_classes.all():
-            return Response({"error": "Student not enrolled in this classroom."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Create the correction request
-        correction_request = CorrectionRequest.objects.create(
-            student=student,
-            attendance_record=attendance_record,
-            reason=reason
-        )
-
-        # Serialize and return the response
-        serializer = CorrectionRequestSerializer(correction_request)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    except AttendanceTable.DoesNotExist:
-        return Response({"error": "Attendance record not found."}, status=status.HTTP_404_NOT_FOUND)
+        teacher = CustomUser.objects.get(id=teacher_id, role='teacher')
     except CustomUser.DoesNotExist:
-        return Response({"error": "Student not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'detail': 'Teacher not found.'}, status=404)
+
+    serializer = QuerySerializer(data={'teacher': teacher.id, 'message': message})
+    if serializer.is_valid():
+        serializer.save(student=request.user, teacher=teacher)
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
 
 
 """
-9. View all attendance correction requests (Admin or Teacher access)
+9. View all queries 
 """
 
 @api_view(['GET'])
-def view_all_corrections(request):
-    
-    correction_requests = CorrectionRequest.objects.all()
-    serializer = CorrectionRequestSerializer(correction_requests, many=True)
+@permission_classes([IsAuthenticated])
+def list_queries(request):
+    user = request.user
+    if user.role == 'student':
+        queries = Query.objects.filter(student=user)
+    elif user.role == 'teacher':
+        queries = Query.objects.filter(teacher=user)
+    else:
+        return Response({'detail': 'Access denied.'}, status=403)
 
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    serializer = QuerySerializer(queries, many=True)
+    return Response(serializer.data)
+
 
 
 """
 10. Approve or Reject an attendance correction request
 """
 
-@api_view(['PUT'])
-def approve_or_reject_correction(request, request_id):
-   
+@api_view(['PATCH'])
+# @permission_classes([IsAuthenticated])
+def update_query_status(request, pk):
     try:
-        correction_request = CorrectionRequest.objects.get(id=request_id)
-    except CorrectionRequest.DoesNotExist:
-        return Response({"error": "Correction request not found."}, status=status.HTTP_404_NOT_FOUND)
+        query = Query.objects.get(pk=pk)
+    except Query.DoesNotExist:
+        return Response({'detail': 'Query not found.'}, status=404)
 
-    status_choice = request.data.get('status')
+    if request.user.role != 'teacher' or query.teacher != request.user:
+        return Response({'detail': 'Permission denied.'}, status=403)
 
-    if status_choice not in ['approved', 'rejected']:
-        return Response({"error": "Invalid status. Must be 'approved' or 'rejected'."}, status=status.HTTP_400_BAD_REQUEST)
+    new_status = request.data.get('status')
+    if new_status not in ['approved', 'rejected']:
+        return Response({'detail': 'Invalid status.'}, status=400)
 
-    correction_request.status = status_choice
-    correction_request.save()
+    query.status = new_status
+    query.save()
 
-    # Return the updated correction request
-    serializer = CorrectionRequestSerializer(correction_request)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    serializer = QuerySerializer(query)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def student_query_status(request):
+    if request.user.role != 'student':
+        return Response({'detail': 'Only students can access this.'}, status=403)
+
+    queries = Query.objects.filter(student=request.user)
+    serializer = QuerySerializer(queries, many=True)
+    return Response(serializer.data)
 
 
 """
@@ -406,23 +414,4 @@ def update_subject(request, subject_id):
 
 
 
-'''
-in frontend to accept the excel file
-<form action="/attendance/create-classroom/" method="POST" enctype="multipart/form-data">
-    <label for="name">Classroom Name:</label>
-    <input type="text" name="name" id="name" required>
-    
-    <label for="subject">Subject ID:</label>
-    <input type="number" name="subject" id="subject" required>
-    
-    <label for="teacher">Teacher ID:</label>
-    <input type="number" name="teacher" id="teacher" required>
-    
-    <label for="students_excel">Upload Student List (Excel):</label>
-    <input type="file" name="students_excel" id="students_excel" accept=".xlsx, .xls" required>
-    
-    <button type="submit">Create Classroom</button>
-</form>
 
-
-'''

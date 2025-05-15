@@ -44,13 +44,18 @@ class AttendanceTable(models.Model):
         return f"{self.student_name} - {self.classroom.name}"
 
 
-class CorrectionRequest(models.Model):
-    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='correction_requests')
-    attendance_record = models.ForeignKey(AttendanceTable, on_delete=models.CASCADE, related_name='correction_requests')
-    reason = models.TextField()
-    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='pending')
+class Query(models.Model):
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='queries')
+    teacher = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_queries', limit_choices_to={'role': 'teacher'})
+    message = models.TextField()
+    status = models.CharField(
+        max_length=20,
+        choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')],
+        default='pending'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Correction Request by {self.student.get_full_name()} for {self.attendance_record}"
+        return f"Query from {self.student.get_full_name()} to {self.teacher.get_full_name()}"
+
