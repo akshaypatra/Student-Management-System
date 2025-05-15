@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassList from './TeacherDashboardComponents/ClassList'
+import QueriesList from './TeacherDashboardComponents/QueriesList'
 // import ClassDetails from './TeacherDashboardComponents/ClassDetails'
 
 export default function TeacherDashboard() {
@@ -9,6 +10,10 @@ export default function TeacherDashboard() {
       <section>
         {/* <ClassDetails/> */}
         <ClassList/>
+        
+      </section>
+      <section className='t-queries-section'>
+         <QueriesList/>
       </section>
 
 

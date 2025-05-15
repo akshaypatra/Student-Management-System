@@ -754,6 +754,107 @@ tr:hover {
 
 }
 
+/* 3.4 queries list -teachers */
+
+.t-queries-section{
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.287);
+  margin-top: 5rem !important;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.t-queries-container h2{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+}
+.t1-queries-filters-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+.t1-queries-filters-container select{
+padding: 0.3rem !important;
+width: 7rem !important;
+}
+.t1-queries-filters-container input{
+padding: 0.4rem !important ;
+width: 15rem !important;
+}
+
+.t-queries-list-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: auto;
+  max-height: 70vh;
+  gap: 2rem !important;
+  background-color: #007bff1b;
+  padding: 3rem !important;
+  border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+}
+
+.t-queries-list{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  overflow: auto;
+  padding: 0.6rem !important;
+  width: 20rem !important;
+  height: 10rem !important;
+  border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.225);
+
+  background-color: rgba(108, 161, 234, 0.614);
+}
+.t-queries-list:hover{
+  background-color:rgba(108, 161, 234, 0.739); ;
+}
+.t-queries-status{
+  padding: 0.4rem !important;
+}
+
+
+/* 3.5 query detail */
+.t-query-detail-container{
+  background-color: rgba(255, 255, 255, 0.214);
+  padding: 2rem !important;
+  display: flex;
+  flex-direction: column;
+  
+}
+.t-query-detail-container button{
+  padding: 0.4rem !important;
+}
+.t-query-detail-box-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.t-query-detail-box{
+  background-color: rgba(255, 255, 255, 0.587);
+  padding: 2rem !important;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem !important;
+}
+.t-query-detail-message-textarea{
+  padding: 0.4rem !important;
+  background-color: #77cdd659;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.075);
+
+}
+.t-query-status-buttons-div{
+align-items: center;
+justify-content: center;
+}
 
 /* 4. Student dashboard */
 
@@ -782,6 +883,7 @@ tr:hover {
   gap: 2rem ;
   max-height: 50vh;
   overflow: auto;
+
 }
 
 .enrolled-classes-list-button{
