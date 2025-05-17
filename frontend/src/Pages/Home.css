@@ -1,0 +1,120 @@
+.home-container{
+    overflow: auto;
+    border-radius: 10px;
+    height: 97vh;
+    padding: 2rem !important;
+    background-color: rgba(240, 248, 255, 0.515);
+}
+
+
+/* Header container */
+
+.home-header-container{
+    text-align: center;
+    padding: 2rem !important;
+    margin-bottom: 3rem !important;
+    
+}
+.home-header-container h1{
+    color: rgb(63, 175, 245);
+font-weight: bold ;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.home-header-container h5{
+    margin-top: 1rem !important;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+
+    .home-header-container h1{
+        font-size: 20px;
+
+    }
+
+    .home-container{
+        padding: 0rem !important;
+    }
+
+    .home-header-container{
+        padding: 0rem !important;
+        margin-bottom: 2rem !important;
+        padding-top: 1rem !important;
+        
+    }
+
+    .home-header-container h5{
+    font-size: 15px;
+}
+
+}
+
+
+/* Feature container */
+
+.home-features-container{
+    padding: 1rem !important;
+}
+
+.home-features-container h2{
+    text-align: center;
+    color: rgb(63, 175, 245);
+    margin-bottom: 2rem !important;
+    font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.feature-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem !important;
+    overflow: auto;
+}
+
+.features-container h4{
+ text-align: center;
+}
+
+.features-box{
+    width: 70rem !important;
+    background-color: rgba(137, 191, 237, 0.614);
+    padding: 1rem !important;
+    border-radius: 10px;
+    box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.243);
+
+}
+.features-image{
+    width: 100% !important;
+    border-radius: 10px;
+    border: 2px solid rgba(102, 172, 233, 0.724);
+}
+
+.features-box h4{
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+}
+.features-box h5{
+    background-color: rgba(240, 248, 255, 0.594);
+    border-radius: 10px;
+    margin-top: 10px !important;
+    padding: 1rem !important;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .features-box{
+        width: 100% !important;
+    }
+
+    .home-features-container{
+        margin: 0rem !important;
+    }
+
+    .features-text{
+        font-size: 15px;
+    }
+}

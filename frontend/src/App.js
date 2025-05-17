@@ -16,6 +16,7 @@ import MarkAttendance from './Dashboards/TeacherDashboardComponents/MarkAttendan
 import AttendanceComponent from './Dashboards/StudentDashboardComponents/AttendanceComponent';
 import QueriesForm from './Dashboards/StudentDashboardComponents/QuriesForm';
 import QueryDetail from './Dashboards/TeacherDashboardComponents/QueryDetail';
+import Home from './Pages/Home';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         
         <section className="main-content">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />

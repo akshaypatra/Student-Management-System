@@ -62,7 +62,6 @@ const Navbar = () => {
         {!isLoggedIn ? (
           <>
             <li><Link to="/" onClick={closeMenu}> Home</Link></li>
-            <li><Link to="/services" onClick={closeMenu}>Services</Link></li>
             <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
             <li><Link to="/login" onClick={closeMenu}>Log In</Link></li>
           </>
