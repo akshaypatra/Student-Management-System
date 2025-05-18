@@ -27,9 +27,14 @@ const AttendanceView = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
     fetch(
-      `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/attendance/`
-    )
+      `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/attendance/`,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setAttendanceData(data.attendance);
@@ -134,9 +139,11 @@ const AttendanceView = () => {
     else if (currentStatus === "absent") newStatus = "present";
     else newStatus = "present"; // If not marked yet, mark as present
 
+    const token = localStorage.getItem("access_token");
     fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
       method: "PUT",
       headers: {
+        'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -180,10 +187,12 @@ const AttendanceView = () => {
     ) {
       return;
     }
-
+    
+    const token = localStorage.getItem("access_token");
     fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
       method: "PUT",
       headers: {
+        'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

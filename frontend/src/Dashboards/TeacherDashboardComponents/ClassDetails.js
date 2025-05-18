@@ -6,7 +6,12 @@ const ClassDetails = () => {
   const teacherId = localStorage.getItem('id'); // Example: "T111"
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/attendance/classrooms/')
+    const token = localStorage.getItem("access_token");
+    fetch('http://127.0.0.1:8000/api/attendance/classrooms/', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(cls => cls.teacher === teacherId);
