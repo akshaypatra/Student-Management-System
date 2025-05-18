@@ -14,8 +14,14 @@ export default function ClassroomList() {
 
   const fetchClassrooms = async () => {
     try {
+      const token = localStorage.getItem("access_token");
       const res = await axios.get(
-        "http://127.0.0.1:8000/api/attendance/classrooms/"
+        "http://127.0.0.1:8000/api/attendance/classrooms/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setClassrooms(res.data);
       setFilteredClassrooms(res.data);

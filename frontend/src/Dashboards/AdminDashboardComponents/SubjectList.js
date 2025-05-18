@@ -7,7 +7,11 @@ export default function SubjectList() {
 
   const fetchSubjects = async () => {
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch("http://127.0.0.1:8000/api/attendance/subjects/", {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+          },
         method: 'GET',
       });
       const data = await response.json();
@@ -37,9 +41,12 @@ export default function SubjectList() {
 
   const handleUpdate = async () => {
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(`http://127.0.0.1:8000/api/attendance/subjects/update/${selectedSubject.id}/`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+           'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -59,7 +66,11 @@ export default function SubjectList() {
     if (!window.confirm("Are you sure you want to delete this subject?")) return;
 
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(`http://127.0.0.1:8000/api/attendance/subjects/delete/${selectedSubject.id}/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
         method: 'DELETE',
       });
 

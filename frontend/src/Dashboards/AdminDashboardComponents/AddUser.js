@@ -31,12 +31,15 @@ export default function AddUser() {
       password: formData.password,
       role: formData.role,
     };
+    const token = localStorage.getItem("access_token");
+
 
     try {
       // Sending a POST request to the API
       const response = await fetch("http://127.0.0.1:8000/api/register/", {
         method: "POST",
         headers: {
+          'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),

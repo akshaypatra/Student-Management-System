@@ -18,10 +18,15 @@ export default function UpdateClassroom() {
 
   useEffect(() => {
     async function fetchClassroom() {
+      const token = localStorage.getItem('access_token'); 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/attendance/classrooms/"
-        );
+          "http://127.0.0.1:8000/api/attendance/classrooms/",
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
 
         const classroom = data.find(
@@ -40,10 +45,10 @@ export default function UpdateClassroom() {
         }
 
         // Get teachers list with token from localStorage
-        const token = localStorage.getItem('access_token'); // Assuming your token is stored as 'authToken' in localStorage
+        
         const teacherRes = await fetch("http://127.0.0.1:8000/api/teachers/", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
         });
         const teacherData = await teacherRes.json();
@@ -89,11 +94,14 @@ export default function UpdateClassroom() {
     };
 
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
         `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/update/`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
@@ -114,9 +122,13 @@ export default function UpdateClassroom() {
     const confirmDelete = window.confirm("Are you sure you want to delete this classroom?");
     if (confirmDelete) {
       try {
+        const token = localStorage.getItem("access_token");
         const response = await fetch(
           `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/delete/`,
-          { method: "DELETE" }
+          { method: "DELETE",
+            headers: { 
+            'Authorization': `Bearer ${token}`}
+           }
         );
 
         if (response.ok) {

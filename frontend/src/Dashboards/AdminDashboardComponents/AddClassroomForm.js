@@ -12,17 +12,22 @@ export default function AddClassroomForm() {
   const [teachers, setTeachers] = useState([]);
 
   useEffect(() => {
+    // Fetch teachers with token
+    const token = localStorage.getItem("access_token");
     // Fetch subjects
-    fetch("http://127.0.0.1:8000/api/attendance/subjects/")
+    fetch("http://127.0.0.1:8000/api/attendance/subjects/", {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then(setSubjects)
       .catch((err) => console.error("Failed to fetch subjects:", err));
 
-    // Fetch teachers with token
-    const token = localStorage.getItem("access_token");
+    
     fetch("http://127.0.0.1:8000/api/teachers/", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -47,11 +52,15 @@ export default function AddClassroomForm() {
     submissionData.append("subject", formData.subject); // subject ID
     submissionData.append("teacher", formData.teacher); // teacher ID
     submissionData.append("students_excel", formData.students_excel);
+    const token = localStorage.getItem("access_token");
 
     try {
       const response = await fetch(
         "http://127.0.0.1:8000/api/attendance/classrooms/create/",
         {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
           method: "POST",
           body: submissionData,
         }

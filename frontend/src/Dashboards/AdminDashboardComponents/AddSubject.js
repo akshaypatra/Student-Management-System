@@ -21,12 +21,14 @@ export default function AddSubject() {
       code: formData.code,
       name: formData.name,
     };
+    const token = localStorage.getItem("access_token");
 
     try {
       // Sending a POST request to the API
       const response = await fetch("http://127.0.0.1:8000/api/attendance/subjects/create/", {
         method: "POST",
         headers: {
+          'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
