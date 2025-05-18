@@ -16,6 +16,7 @@ from users.models import CustomUser
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
+@permission_classes([IsAuthenticated])
 def create_classroom(request):
     
     classroom_serializer = CreateClassRoomSerializer(data=request.data)
@@ -70,6 +71,7 @@ def create_classroom(request):
 """
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_all_classrooms(request):
     
     classrooms = ClassRoom.objects.all()
@@ -82,6 +84,7 @@ def get_all_classrooms(request):
 """
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_classroom_details(request, classroom_id):
     
     classroom = ClassRoom.objects.filter(id=classroom_id).first()
@@ -104,6 +107,7 @@ def get_classroom_details(request, classroom_id):
 """
 
 @api_view(['PUT', 'PATCH'])
+@permission_classes([IsAuthenticated])
 def update_classroom(request, classroom_id):
    
     try:
@@ -125,6 +129,7 @@ def update_classroom(request, classroom_id):
 """
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_classroom(request, classroom_id):
     
     try:
@@ -140,6 +145,7 @@ def delete_classroom(request, classroom_id):
 """
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def mark_attendance(request):
     
     classroom_id = request.data.get('classroom_id')
@@ -191,6 +197,7 @@ def mark_attendance(request):
 '''
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_attendance(request):
     classroom_id = request.data.get('classroom_id')
     date = request.data.get('date')
@@ -255,7 +262,9 @@ def update_attendance(request):
 """
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_classroom_attendance(request, classroom_id):
+    
     
     classroom = ClassRoom.objects.filter(id=classroom_id).first()
     if not classroom:
@@ -321,7 +330,7 @@ def list_queries(request):
 """
 
 @api_view(['PATCH'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def update_query_status(request, pk):
     try:
         query = Query.objects.get(pk=pk)
@@ -358,6 +367,7 @@ def student_query_status(request):
 """
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_subject(request):
    
     serializer = SubjectSerializer(data=request.data)
@@ -373,6 +383,7 @@ def create_subject(request):
 """
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_all_subjects(request):
     
     subjects = Subject.objects.all()
@@ -385,6 +396,7 @@ def get_all_subjects(request):
 """
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_subject(request, subject_id):
     try:
         subject = Subject.objects.get(id=subject_id)
@@ -398,6 +410,7 @@ def delete_subject(request, subject_id):
 """
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_subject(request, subject_id):
     try:
         subject = Subject.objects.get(id=subject_id)
