@@ -23,6 +23,30 @@ Base URL: `http://127.0.0.1:8000`
 
 ---
 
+
+
+
+| **Category**          | **Endpoint**                                 | **Method** | **Description**                           |
+| --------------------- | -------------------------------------------- | ---------- | ----------------------------------------- |
+| 🔹 Classroom          | `/classrooms/create/`                        | POST       | Create a new classroom                    |
+|                       | `/classrooms/`                               | GET        | Get a list of all classrooms              |
+|                       | `/classrooms/<int:classroom_id>/`            | GET        | Get details of a specific classroom       |
+|                       | `/classrooms/<int:classroom_id>/update/`     | PUT/PATCH  | Update details of a specific classroom    |
+|                       | `/classrooms/<int:classroom_id>/delete/`     | DELETE     | Delete a specific classroom               |
+| 🔸 Attendance         | `/mark/`                                     | POST       | Mark attendance for students              |
+|                       | `/classrooms/<int:classroom_id>/attendance/` | GET        | Get attendance records for a classroom    |
+|                       | `/update/`                                   | PUT/PATCH  | Update existing attendance                |
+| 🟢 Queries            | `/queries/create/`                           | POST       | Student creates a new query               |
+|                       | `/queries/`                                  | GET        | Admin/faculty view all queries            |
+|                       | `/queries/<int:pk>/update-status/`           | PUT/PATCH  | Update the status of a query (admin side) |
+|                       | `/queries/student-status/`                   | GET        | Student views their query status          |
+| 🔵 Subject Management | `/subjects/create/`                          | POST       | Create a new subject                      |
+|                       | `/subjects/`                                 | GET        | Get a list of all subjects                |
+|                       | `/subjects/delete/<int:subject_id>/`         | DELETE     | Delete a specific subject                 |
+|                       | `/subjects/update/<int:subject_id>/`         | PUT/PATCH  | Update a specific subject                 |
+
+
+
 ## 🧑‍💻 Author
 Akshay Patra
 
