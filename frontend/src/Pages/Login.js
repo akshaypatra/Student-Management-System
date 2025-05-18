@@ -16,7 +16,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+      const response = await axios.post('https://classify-backend-zstl.onrender.com/api/login/', {
         email,
         password
       });
