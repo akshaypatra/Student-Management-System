@@ -83,17 +83,36 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'student_management_system', 
+#         'USER': 'root',  
+#         'PASSWORD': 'Akshay.7596',  
+#         'HOST': 'localhost', 
+#         'PORT': '3306',  
+#     }
+# }
+import os
+from decouple import config
+from pathlib import Path
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'student_management_system', 
-        'USER': 'root',  
-        'PASSWORD': 'Akshay.7596',  
-        'HOST': 'localhost', 
-        'PORT': '3306',  
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='3306'),
+        'OPTIONS': {
+            'ssl': {
+                'ca': os.path.join(BASE_DIR, 'backend', config('DB_SSL_CA'))
+                },  
+        },
     }
 }
-
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
