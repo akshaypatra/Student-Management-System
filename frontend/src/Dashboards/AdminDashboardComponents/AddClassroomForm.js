@@ -15,7 +15,7 @@ export default function AddClassroomForm() {
     // Fetch teachers with token
     const token = localStorage.getItem("access_token");
     // Fetch subjects
-    fetch("http://127.0.0.1:8000/api/attendance/subjects/", {
+    fetch("https://classify-backend-zstl.onrender.com/api/attendance/subjects/", {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -25,7 +25,7 @@ export default function AddClassroomForm() {
       .catch((err) => console.error("Failed to fetch subjects:", err));
 
     
-    fetch("http://127.0.0.1:8000/api/teachers/", {
+    fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ export default function AddClassroomForm() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/attendance/classrooms/create/",
+        "https://classify-backend-zstl.onrender.com/api/attendance/classrooms/create/",
         {
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -21,7 +21,7 @@ export default function UpdateClassroom() {
       const token = localStorage.getItem('access_token'); 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/attendance/classrooms/",
+          "https://classify-backend-zstl.onrender.com/api/attendance/classrooms/",
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function UpdateClassroom() {
 
         // Get teachers list with token from localStorage
         
-        const teacherRes = await fetch("http://127.0.0.1:8000/api/teachers/", {
+        const teacherRes = await fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -96,7 +96,7 @@ export default function UpdateClassroom() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await fetch(
-        `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/update/`,
+        `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classroomId}/update/`,
         {
           method: "PUT",
           headers: { 
@@ -124,7 +124,7 @@ export default function UpdateClassroom() {
       try {
         const token = localStorage.getItem("access_token");
         const response = await fetch(
-          `http://127.0.0.1:8000/api/attendance/classrooms/${classroomId}/delete/`,
+          `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classroomId}/delete/`,
           { method: "DELETE",
             headers: { 
             'Authorization': `Bearer ${token}`}

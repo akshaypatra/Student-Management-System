@@ -27,7 +27,7 @@ const AttendanceComponent = () => {
       try {
         const token = localStorage.getItem("access_token");
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/`,
+          `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

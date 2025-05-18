@@ -8,7 +8,7 @@ export default function SubjectList() {
   const fetchSubjects = async () => {
     try {
       const token = localStorage.getItem("access_token");
-      const response = await fetch("http://127.0.0.1:8000/api/attendance/subjects/", {
+      const response = await fetch("https://classify-backend-zstl.onrender.com/api/attendance/subjects/", {
         headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ export default function SubjectList() {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("access_token");
-      const response = await fetch(`http://127.0.0.1:8000/api/attendance/subjects/update/${selectedSubject.id}/`, {
+      const response = await fetch(`https://classify-backend-zstl.onrender.com/api/attendance/subjects/update/${selectedSubject.id}/`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function SubjectList() {
 
     try {
       const token = localStorage.getItem("access_token");
-      const response = await fetch(`http://127.0.0.1:8000/api/attendance/subjects/delete/${selectedSubject.id}/`, {
+      const response = await fetch(`https://classify-backend-zstl.onrender.com/api/attendance/subjects/delete/${selectedSubject.id}/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

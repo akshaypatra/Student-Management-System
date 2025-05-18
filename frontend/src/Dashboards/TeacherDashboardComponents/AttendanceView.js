@@ -29,7 +29,7 @@ const AttendanceView = () => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     fetch(
-      `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/attendance/`,
+      `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/attendance/`,
     {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -140,7 +140,7 @@ const AttendanceView = () => {
     else newStatus = "present"; // If not marked yet, mark as present
 
     const token = localStorage.getItem("access_token");
-    fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
+    fetch(`https://classify-backend-zstl.onrender.com/api/attendance/update/`, {
       method: "PUT",
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -189,7 +189,7 @@ const AttendanceView = () => {
     }
     
     const token = localStorage.getItem("access_token");
-    fetch(`http://127.0.0.1:8000/api/attendance/update/`, {
+    fetch(`https://classify-backend-zstl.onrender.com/api/attendance/update/`, {
       method: "PUT",
       headers: {
         'Authorization': `Bearer ${token}`,

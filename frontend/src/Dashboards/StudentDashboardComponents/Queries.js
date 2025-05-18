@@ -16,7 +16,7 @@ export default function Queries() {
 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/attendance/queries/student-status/",
+          "https://classify-backend-zstl.onrender.com/api/attendance/queries/student-status/",
           {
             headers: {
               Authorization: `Bearer ${token}`,

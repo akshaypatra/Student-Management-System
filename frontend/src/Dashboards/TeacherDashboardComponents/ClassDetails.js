@@ -7,7 +7,7 @@ const ClassDetails = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    fetch('http://127.0.0.1:8000/api/attendance/classrooms/', {
+    fetch('https://classify-backend-zstl.onrender.com/api/attendance/classrooms/', {
       headers: {
         'Authorization': `Bearer ${token}`,
       },

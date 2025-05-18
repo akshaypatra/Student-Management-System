@@ -12,7 +12,7 @@ export default function QueryDetail() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/attendance/queries/${query.id}/update-status/`,
+        `https://classify-backend-zstl.onrender.com/api/attendance/queries/${query.id}/update-status/`,
         {
           method: "PATCH",
           headers: {

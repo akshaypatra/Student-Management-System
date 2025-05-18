@@ -16,7 +16,7 @@ const MarkAttendance = () => {
     const fetchStudents = async () => {
           const token = localStorage.getItem("access_token");
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/attendance/classrooms/${classId}/attendance/`, {
+        const response = await fetch(`https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/attendance/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -57,7 +57,7 @@ const MarkAttendance = () => {
     try {
       const token = localStorage.getItem("access_token");
 
-      const response = await fetch('http://127.0.0.1:8000/api/attendance/mark/', {
+      const response = await fetch('https://classify-backend-zstl.onrender.com/api/attendance/mark/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
