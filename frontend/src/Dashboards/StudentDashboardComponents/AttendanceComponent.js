@@ -25,8 +25,14 @@ const AttendanceComponent = () => {
   useEffect(() => {
     const fetchAttendance = async () => {
       try {
+        const token = localStorage.getItem("access_token");
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/`
+          `http://127.0.0.1:8000/api/attendance/classrooms/${classId}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setClassInfo({
           classroom: response.data.classroom,
@@ -117,8 +123,6 @@ const AttendanceComponent = () => {
                   </Pie>
                   <Tooltip
                     formatter={(value, name) => {
-                      
-                      
                       return [`${value} days `, name];
                     }}
                   />

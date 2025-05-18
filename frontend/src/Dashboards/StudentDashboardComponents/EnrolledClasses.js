@@ -11,9 +11,16 @@ const EnrolledClasses = () => {
   const navigate=useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
     const fetchClassrooms = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/attendance/classrooms/');
+        const response = await axios.get('http://127.0.0.1:8000/api/attendance/classrooms/',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );;
         const allClasses = response.data;
 
         const matchedClasses = allClasses.filter(cls =>
