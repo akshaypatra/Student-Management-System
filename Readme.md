@@ -2,6 +2,10 @@
 
 A full-stack web application for educational institutions to streamline **attendance**, **classroom management**, and **student-teacher communication**.
 
+## Website link
+
+### [classify-smoky.vercel.app](https://classify-smoky.vercel.app/)
+
 ## 🚀 Features
 
 ### 🛠️ Admin Panel
