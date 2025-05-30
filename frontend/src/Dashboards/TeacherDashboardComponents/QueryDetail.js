@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import baseUrl from "../BaseUrl";
 export default function QueryDetail() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function QueryDetail() {
 
     try {
       const response = await fetch(
-        `https://classify-backend-zstl.onrender.com/api/attendance/queries/${query.id}/update-status/`,
+        `${baseUrl}/api/attendance/queries/${query.id}/update-status/`,
         {
           method: "PATCH",
           headers: {

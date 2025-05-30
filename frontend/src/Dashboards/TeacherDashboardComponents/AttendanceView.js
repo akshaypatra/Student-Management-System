@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Papa from "papaparse"; // Import PapaParse for CSV export
 import { useNavigate } from "react-router-dom";
+import baseUrl from "../BaseUrl";
+
 
 const AttendanceView = () => {
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ const AttendanceView = () => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     fetch(
-      `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/attendance/`,
+      `${baseUrl}/api/attendance/classrooms/${classId}/attendance/`,
     {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -140,7 +142,7 @@ const AttendanceView = () => {
     else newStatus = "present"; // If not marked yet, mark as present
 
     const token = localStorage.getItem("access_token");
-    fetch(`https://classify-backend-zstl.onrender.com/api/attendance/update/`, {
+    fetch(`${baseUrl}/api/attendance/update/`, {
       method: "PUT",
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -189,7 +191,7 @@ const AttendanceView = () => {
     }
     
     const token = localStorage.getItem("access_token");
-    fetch(`https://classify-backend-zstl.onrender.com/api/attendance/update/`, {
+    fetch(`${baseUrl}/api/attendance/update/`, {
       method: "PUT",
       headers: {
         'Authorization': `Bearer ${token}`,

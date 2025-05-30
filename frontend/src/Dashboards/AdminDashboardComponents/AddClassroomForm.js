@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import baseUrl from "../BaseUrl";
 
 export default function AddClassroomForm() {
   const [formData, setFormData] = useState({
@@ -10,12 +11,13 @@ export default function AddClassroomForm() {
 
   const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
+ 
 
   useEffect(() => {
     // Fetch teachers with token
     const token = localStorage.getItem("access_token");
     // Fetch subjects
-    fetch("https://classify-backend-zstl.onrender.com/api/attendance/subjects/", {
+    fetch(`${baseUrl}/api/attendance/subjects/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -25,7 +27,7 @@ export default function AddClassroomForm() {
       .catch((err) => console.error("Failed to fetch subjects:", err));
 
     
-    fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
+    fetch(`${baseUrl}/api/teachers/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -56,7 +58,7 @@ export default function AddClassroomForm() {
 
     try {
       const response = await fetch(
-        "https://classify-backend-zstl.onrender.com/api/attendance/classrooms/create/",
+        `${baseUrl}/api/attendance/classrooms/create/`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,

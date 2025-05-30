@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import baseUrl from '../BaseUrl';
 
 export default function AddSubject() {
   const [formData, setFormData] = useState({
@@ -7,8 +8,7 @@ export default function AddSubject() {
     name: "",
     
   });
-
-
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,7 +25,7 @@ export default function AddSubject() {
 
     try {
       // Sending a POST request to the API
-      const response = await fetch("https://classify-backend-zstl.onrender.com/api/attendance/subjects/create/", {
+      const response = await fetch(`${baseUrl}/api/attendance/subjects/create/`, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`,

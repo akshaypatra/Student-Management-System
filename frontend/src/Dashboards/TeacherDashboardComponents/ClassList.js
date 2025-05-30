@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import baseUrl from '../BaseUrl';
 const ClassList = () => {
   const [classrooms, setClassrooms] = useState([]);
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ const ClassList = () => {
   useEffect(() => {
     const teacherId = localStorage.getItem('id');
     const token = localStorage.getItem("access_token");
-    fetch('https://classify-backend-zstl.onrender.com/api/attendance/classrooms/', {
+    fetch(`${baseUrl}/api/attendance/classrooms/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },

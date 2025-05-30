@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import baseUrl from '../BaseUrl';
 export default function UserList() {
   const [selectedRole, setSelectedRole] = useState('');
   const [students, setStudents] = useState([]);
@@ -16,7 +16,7 @@ export default function UserList() {
   // Fetch functions
   const fetchStudents = async () => {
     const token = localStorage.getItem('access_token');
-    const response = await fetch("https://classify-backend-zstl.onrender.com/api/students/", {
+    const response = await fetch(`${baseUrl}/api/students/`, {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` },
     });
@@ -27,7 +27,7 @@ export default function UserList() {
 
   const fetchTeachers = async () => {
     const token = localStorage.getItem('access_token');
-    const response = await fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
+    const response = await fetch(`${baseUrl}/api/teachers/`, {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` },
     });
@@ -39,7 +39,7 @@ export default function UserList() {
   // Handle user deletion
   const handleDelete = async (userId) => {
     const token = localStorage.getItem('access_token');
-    const response = await fetch(`https://classify-backend-zstl.onrender.com/api/delete-user/${userId}/`, {
+    const response = await fetch(`${baseUrl}/api/delete-user/${userId}/`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` },
     });

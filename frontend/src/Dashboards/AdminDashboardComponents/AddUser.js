@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import baseUrl from "../BaseUrl";
 
 export default function AddUser() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ export default function AddUser() {
 
     try {
       // Sending a POST request to the API
-      const response = await fetch("https://classify-backend-zstl.onrender.com/api/register/", {
+      const response = await fetch(`${baseUrl}/api/register/`, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`,

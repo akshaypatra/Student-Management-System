@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import baseUrl from '../BaseUrl';
 
 
 const EnrolledClasses = () => {
@@ -14,7 +14,7 @@ const EnrolledClasses = () => {
     const token = localStorage.getItem("access_token");
     const fetchClassrooms = async () => {
       try {
-        const response = await axios.get('https://classify-backend-zstl.onrender.com/api/attendance/classrooms/',
+        const response = await axios.get(`${baseUrl}/api/attendance/classrooms/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

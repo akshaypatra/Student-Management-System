@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import baseUrl from "../BaseUrl";
 export default function UpdateClassroom() {
   const { classroomId } = useParams();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function UpdateClassroom() {
       const token = localStorage.getItem('access_token'); 
       try {
         const response = await fetch(
-          "https://classify-backend-zstl.onrender.com/api/attendance/classrooms/",
+          `${baseUrl}/api/attendance/classrooms/`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function UpdateClassroom() {
 
         // Get teachers list with token from localStorage
         
-        const teacherRes = await fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
+        const teacherRes = await fetch(`${baseUrl}/api/teachers/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -96,7 +96,7 @@ export default function UpdateClassroom() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await fetch(
-        `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classroomId}/update/`,
+        `${baseUrl}/api/attendance/classrooms/${classroomId}/update/`,
         {
           method: "PUT",
           headers: { 
@@ -124,7 +124,7 @@ export default function UpdateClassroom() {
       try {
         const token = localStorage.getItem("access_token");
         const response = await fetch(
-          `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classroomId}/delete/`,
+          `${baseUrl}/api/attendance/classrooms/${classroomId}/delete/`,
           { method: "DELETE",
             headers: { 
             'Authorization': `Bearer ${token}`}

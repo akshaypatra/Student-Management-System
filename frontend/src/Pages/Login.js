@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { FaUserCircle } from 'react-icons/fa'; 
+import baseUrl from '../Dashboards/BaseUrl';
+
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
@@ -16,7 +19,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://classify-backend-zstl.onrender.com/api/login/', {
+      const response = await axios.post(`${baseUrl}/api/login/`, {
         email,
         password
       });

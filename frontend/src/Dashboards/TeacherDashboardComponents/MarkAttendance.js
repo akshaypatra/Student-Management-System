@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
+import baseUrl from '../BaseUrl';
 const MarkAttendance = () => {
   const { classId, className } = useParams();
   const [selectedDate, setSelectedDate] = useState(() => {
@@ -16,7 +16,7 @@ const MarkAttendance = () => {
     const fetchStudents = async () => {
           const token = localStorage.getItem("access_token");
       try {
-        const response = await fetch(`https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/attendance/`, {
+        const response = await fetch(`${baseUrl}/api/attendance/classrooms/${classId}/attendance/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -57,7 +57,7 @@ const MarkAttendance = () => {
     try {
       const token = localStorage.getItem("access_token");
 
-      const response = await fetch('https://classify-backend-zstl.onrender.com/api/attendance/mark/', {
+      const response = await fetch(`${baseUrl}/api/attendance/mark/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

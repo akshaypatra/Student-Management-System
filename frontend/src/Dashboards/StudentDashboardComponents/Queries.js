@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import baseUrl from "../BaseUrl";
 export default function Queries() {
   const navigate = useNavigate();
   const [queries, setQueries] = useState([]);
@@ -16,7 +16,7 @@ export default function Queries() {
 
       try {
         const response = await fetch(
-          "https://classify-backend-zstl.onrender.com/api/attendance/queries/student-status/",
+          `${baseUrl}/api/attendance/queries/student-status/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

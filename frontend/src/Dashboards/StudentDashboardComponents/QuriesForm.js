@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import baseUrl from "../BaseUrl";
 export default function QueriesForm() {
   const [formData, setFormData] = useState({
     teacher: "",
@@ -12,7 +12,7 @@ export default function QueriesForm() {
     const fetchTeachers = async () => {
       const token = localStorage.getItem("access_token");
       try {
-        const response = await fetch("https://classify-backend-zstl.onrender.com/api/teachers/", {
+        const response = await fetch(`${baseUrl}/api/teachers/`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function QueriesForm() {
     const token = localStorage.getItem("access_token");
 
     try {
-      const response = await fetch("https://classify-backend-zstl.onrender.com/api/attendance/queries/create/", {
+      const response = await fetch(`${baseUrl}/api/attendance/queries/create/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

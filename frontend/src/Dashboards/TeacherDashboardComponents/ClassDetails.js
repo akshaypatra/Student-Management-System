@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import baseUrl from '../BaseUrl';
 const ClassDetails = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
@@ -7,7 +7,7 @@ const ClassDetails = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    fetch('https://classify-backend-zstl.onrender.com/api/attendance/classrooms/', {
+    fetch(`${baseUrl}/api/attendance/classrooms/`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },

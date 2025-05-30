@@ -14,6 +14,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import baseUrl from "../BaseUrl";
 
 const COLORS = ["#04bf65", "#f87171"]; // green = present, red = absent
 
@@ -27,7 +28,7 @@ const AttendanceComponent = () => {
       try {
         const token = localStorage.getItem("access_token");
         const response = await axios.get(
-          `https://classify-backend-zstl.onrender.com/api/attendance/classrooms/${classId}/`,
+          `${baseUrl}/api/attendance/classrooms/${classId}/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

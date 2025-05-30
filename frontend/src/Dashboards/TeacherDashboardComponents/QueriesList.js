@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import baseUrl from "../BaseUrl";
 export default function QueriesList() {
   const [queries, setQueries] = useState([]);
   const [filteredQueries, setFilteredQueries] = useState([]);
@@ -15,7 +15,7 @@ export default function QueriesList() {
       const teacherId = localStorage.getItem("id");
 
       try {
-        const response = await fetch("https://classify-backend-zstl.onrender.com/api/attendance/queries/", {
+        const response = await fetch(`${baseUrl}/api/attendance/queries/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
